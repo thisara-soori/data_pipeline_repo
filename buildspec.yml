@@ -6,3 +6,5 @@ phases:
   build:
     commands:
       - ls -la .
+      - docker build -t thisara/data_science:latest .
+      - docker images
