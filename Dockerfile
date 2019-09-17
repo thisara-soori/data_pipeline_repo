@@ -2,11 +2,18 @@ ARG BASE_CONTAINER=jupyter/datascience-notebook
 FROM $BASE_CONTAINER
 MAINTAINER thisarasooriyarachchi@gmail.com
 
-RUN pip install boto3
-RUN pip install runipy
+ARG BUCKET
 WORKDIR /work
 
-COPY hello.txt ./
-COPY test_jupyter.ipynb ./
+COPY requirements.txt ./
+COPY query.sql ./
+COPY usp.ipynb ./
+COPY check.py ./
+RUN pip install runipy
+RUN pip install -r requirements.txt
+RUN pip install awscli
+RUN aws configure set region us-east-2
+ENV BUCKET=${BUCKET}
+
 EXPOSE 8888
-CMD ["runipy", "test_jupyter.ipynb"]
+CMD ["runipy", "usp.ipynb"]
