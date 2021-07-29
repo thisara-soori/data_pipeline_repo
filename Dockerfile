@@ -15,5 +15,5 @@ RUN pip install awscli
 RUN aws configure set region us-east-2
 ENV BUCKET=${BUCKET}
 
-EXPOSE 8888
+EXPOSE 8090
 CMD ["runipy", "usp.ipynb"]
